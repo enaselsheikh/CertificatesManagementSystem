@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {%block title%}{%endblock%}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top mb-5 bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">نظام ادارة الشهادات</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'login' %}">تسجيل الدخول1</a>
+                </li>
+            </ul>
+            <div>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <label class="nav-link">مرحبا {{user.username}}</label>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'changePassword'%}">تغيير كلمة المرور</a>
+                        </li>
+                    {%endif%}
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                            <form style="display: inline;" method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <input type="submit" class="nav-link active" value="تسجيل الخروج" />    
+                            </form>
+                        {%else%}
+                            <a class="nav-link active" aria-current="page" href="{% url 'login' %}">تسجيل الدخول</a>
+                        {%endif%}
+                    </li>
+                </ul>
+            </div>
+          </div>
+        </div>
+    </nav>
+    <div class="container mt-5 pt-3">
+        <div class="w-75 mx-auto mt-5">
+            {%block content%}{%endblock%}
+        </div>
+    </div>
+</body>
+</html>
