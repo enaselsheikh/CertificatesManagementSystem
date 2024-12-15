@@ -18,7 +18,6 @@ class CertificateSetting(models.Model):
     image_location = models.CharField(max_length=25, choices=imageLocationCoices, default=1)
     certificate_content = models.TextField(null=False,blank=False)
     CertificateType = models.ForeignKey(CertificateType,related_name='CertificateType',on_delete=models.CASCADE)
-
     def __str__(self):
         return self.name
 
