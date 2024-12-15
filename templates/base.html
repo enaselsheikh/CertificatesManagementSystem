@@ -1,79 +1,136 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        {%block title%}{%endblock%}
-    </title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{%block title%}{%endblock%}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
-</head>
-<body dir="rtl">
-    <nav class="navbar navbar-expand-lg fixed-top mb-5 bg-dark bg-gradient" data-bs-theme="dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">نظام ادارة الشهادات</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  </head>
+  <body dir="rtl">
+    <nav
+      class="navbar navbar-expand-lg fixed-top mb-5 bg-dark bg-gradient"
+      data-bs-theme="dark"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">نظام ادارة الشهادات</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            {%for prog in progs%}
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'login' %}"
+                >{{prog.program_id}}</a
+              >
+            </li>
+            {%endfor%}
+          </ul>
+          <div>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                {%for prog in progs%} 
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'login' %}">{{prog.program_id}}</a>
+              {% comment %} {% if user.is_authenticated %}
+              <li class="nav-item">
+                <label class="nav-link">مرحبا {{user.username}}</label>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="{% url 'changePassword'%}"
+                  >تغيير كلمة المرور</a
+                >
+              </li>
+              {%endif%}
+              <li class="nav-item">
+                {% if user.is_authenticated %}
+                <form
+                  style="display: inline"
+                  method="post"
+                  action="{% url 'logout' %}"
+                >
+                  {% csrf_token %}
+                  <input
+                    type="submit"
+                    class="nav-link active"
+                    value="تسجيل الخروج"
+                  />
+                </form>
+                {%else%}
+                <!-- <a class="nav-link active" aria-current="page" href="{% url 'login' %}">تسجيل الدخول</a> -->
+                {%endif%}
+              </li>
+              {% endcomment %} {% if user.is_authenticated %}
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {%if user.first_name%}{{user.first_name}} {{user.last_name}}
+                  {%else%}{{user.username}}{%endif%}
+                  <svg
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-person"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"
+                    />
+                  </svg>
+                </a>
+                <ul
+                  class="dropdown-menu dropdown-menu-start text-end"
+                  aria-labelledby="navbarDropdown"
+                >
+                  <li>
+                    <a class="dropdown-item" href="{% url 'changePassword'%}"
+                      >تغيير كلمة المرور</a
+                    >
                   </li>
-                {%endfor%}
-            </ul>
-            <div>
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    {% comment %}
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <label class="nav-link">مرحبا {{user.username}}</label>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'changePassword'%}">تغيير كلمة المرور</a>
-                        </li>
-                    {%endif%}
-                    <li class="nav-item">
-                        {% if user.is_authenticated %}
-                            <form style="display: inline;" method="post" action="{% url 'logout' %}">
-                                {% csrf_token %}
-                                <input type="submit" class="nav-link active" value="تسجيل الخروج" />    
-                            </form>
-                        {%else%}
-                            <!-- <a class="nav-link active" aria-current="page" href="{% url 'login' %}">تسجيل الدخول</a> -->
-                        {%endif%}
-                    </li>
-                    {% endcomment %}
-                    {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {%if user.first_name%}{{user.first_name}} {{user.last_name}} {%else%}{{user.username}}{%endif%}
-                            <svg  width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                              </svg> 
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-start text-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'changePassword'%}">تغيير كلمة المرور</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><form style="display: inline;" method="post" action="{% url 'logout' %}">
-                                {% csrf_token %}
-                                <input class="dropdown-item" type="submit" class="nav-link active" value="تسجيل الخروج" />    
-                            </form></li>
-                        </ul>
-                    </li>
-                    {%endif%}
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <form
+                      style="display: inline"
+                      method="post"
+                      action="{% url 'logout' %}"
+                    >
+                      {% csrf_token %}
+                      <input
+                        class="dropdown-item"
+                        type="submit"
+                        class="nav-link active"
+                        value="تسجيل الخروج"
+                      />
+                    </form>
+                  </li>
                 </ul>
-            </div>
+              </li>
+              {%endif%}
+            </ul>
           </div>
         </div>
+      </div>
     </nav>
     <div class="container mt-5 pt-3">
-        <div class="w-75 mx-auto mt-5 ">
-            {%block content%}{%endblock%}
-        </div>
+      <div class="w-75 mx-auto mt-5">{%block content%}{%endblock%}</div>
     </div>
-</body>
+  </body>
 </html>
