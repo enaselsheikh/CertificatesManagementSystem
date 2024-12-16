@@ -6,7 +6,7 @@ from tinymce.models import HTMLField
 class CertificateType(models.Model):
     name = models.CharField(max_length=50, null=False, blank=False)
     desc = models.CharField(max_length=200,null=True,blank=True)
-    parent_id = models.ForeignKey('CertificateType',related_name="child",on_delete=models.CASCADE)
+    parent_id = models.ForeignKey('CertificateType',related_name="child",on_delete=models.CASCADE,null=True,blank=True)
 
     def __str__(self):
         return self.name
