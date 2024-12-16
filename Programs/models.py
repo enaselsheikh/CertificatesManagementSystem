@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class programe(models.Model):
-    name = models.CharField(max_length=50,null=False,blank=False)
-    en_Name = models.CharField(max_length=50,null=False,blank=False)
+    name = models.CharField(max_length=50,null=False,blank=False,unique=True)
+    en_Name = models.CharField(max_length=50,null=False,blank=False,unique=True)
     full_path_name = models.CharField(max_length=100,null=False,blank=False)
     en_full_path_name = models.CharField(max_length=100,null=False,blank=False)
     desc = models.CharField(max_length=200,null=True,blank=True)
