@@ -22,4 +22,5 @@ urlpatterns = [
     path('',include('registeration.urls')),
     path('',include('Programs.urls')),
     path('',include('certificates.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ]
