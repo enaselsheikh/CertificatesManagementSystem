@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,9 +41,25 @@ INSTALLED_APPS = [
     'certificates',
     'registeration',
     'widget_tweaks',
-    'Programs'
+    'Programs',
+    'tinymce'
 ]
 
+TINYMCE_DEFAULT_CONFIG = {
+    "height": "1000px",
+    "width": "960px",
+    "menubar": "file edit view insert format tools table help",
+    "plugins": "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code "
+    "fullscreen insertdatetime media table paste code help wordcount spellchecker",
+    "toolbar": "undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft "
+    "aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor "
+    "backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | "
+    "fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | "
+    "a11ycheck ltr rtl | showcomments addcomment code",
+    "custom_undo_redo_levels": 10,
+    "language": "ar",  # To force a specific language instead of the Django current language.
+}
+TINYMCE_SPELLCHECKER = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'CertificatesManagementSystem.middleware.SetLanguageMiddleware',
 ]
 
 ROOT_URLCONF = 'CertificatesManagementSystem.urls'
@@ -126,6 +144,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+LANGUAGES = [ ('en', 'English'), ('ar', 'Arabic'), ] 
+LOCALE_PATHS = [ os.path.join(BASE_DIR, 'locale'), ]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
