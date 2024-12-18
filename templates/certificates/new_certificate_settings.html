@@ -1,0 +1,13 @@
+{% extends 'base.html'%} {% block title%}اضافة اعدادات شهادة جديدة{%endblock%}
+
+{%block content%}
+{{ form.media }}
+<form method="post" novalidate>
+    {% csrf_token %} {% include 'includes/form.html'%}
+    <input
+      type="submit"
+      value="حفظ"
+      class="btn btn-dark w-100 btn-block"
+    />
+  </form>
+{%endblock%}

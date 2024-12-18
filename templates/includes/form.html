@@ -20,9 +20,9 @@
                 {% with palceholderText="Enter " %}
                     {% render_field field class="form-control is-valid" placeholder=palceholderText|add:field.label%}
                 {% endwith%}
-                <div class="valid-feedback">
+                <!-- <div class="valid-feedback">
                     Looks good!
-                </div>
+                </div> -->
                 <p class="text-secondary opacity-75">{{field.help_text}}</p>
             {%endif%}
         </div>

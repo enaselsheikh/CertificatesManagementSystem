@@ -1,0 +1,46 @@
+git clone https://github.com/your-username/your-repo.git
+
+git checkout -b
+
+git add . git commit -m "Describe your changes"
+
+git push origin feature-branch-name
+
+---------------------------
+Create a Pull Request:
+
+Go to the repository on GitHub.
+
+Click the “Compare & pull request” button next to your branch.
+
+Add a descriptive title and comment about the changes.
+
+Submit the pull request.
+
+Step 4: Review and Merge Changes
+Review the Pull Request:
+
+Team members or maintainers review the pull request.
+
+Discuss and request changes if needed.
+
+Merge the Pull Request:
+
+Once the pull request is approved, merge it into the master branch.
+
+This can be done on GitHub by clicking the “Merge pull request” button.
+
+Optionally, delete the branch after merging.
+
+--------------
+git checkout master 
+git pull origin master
+
+
+-----------------
+commit resolved conflicts
+
+git add .
+git commit -m "Resolved merge conflicts"
+
+git merge branch-to-merge
